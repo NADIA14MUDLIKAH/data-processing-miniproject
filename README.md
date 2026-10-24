@@ -17,7 +17,7 @@ Dataset `data/orders.csv` dari paket pendukung **tidak diubah**; semua keluaran 
 ├── requirements.txt
 ├── docker-compose.yml          # Kafka single-node (dari paket pendukung)
 ├── data/
-│   ├── orders.csv              # sumber (JANGAN diubah)
+│   ├── orders.csv              # sumber 
 │   ├── raw/                    # Parquet mentah (semua nilai asli, string)
 │   ├── valid/                  # record lolos kontrak
 │   ├── rejected/               # record ditolak + alasan
@@ -40,8 +40,7 @@ Dataset `data/orders.csv` dari paket pendukung **tidak diubah**; semua keluaran 
 ├── queries/analytics.sql
 ├── results/                    # hasil benchmark
 ├── warehouse/warehouse.duckdb  # dibuat oleh load_duckdb.py
-├── dbt_project/                # proyek dbt (staging, marts, tests)
-└── Modul_Praktikum.docx        # modul / laporan praktikum
+└── dbt_project/                # proyek dbt (staging, marts, tests)
 ```
 
 ## Cara menjalankan (semua perintah dari folder proyek)
