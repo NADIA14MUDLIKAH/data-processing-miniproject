@@ -1,0 +1,8 @@
+{
+  "python": "3.11.9",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "cpu_count": 12,
+  "pandas": "3.0.6",
+  "polars": "2.0.0",
+  "ram_gb": 15.7
+}

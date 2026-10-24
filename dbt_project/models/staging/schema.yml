@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Staging pesanan: tipe dan nama kolom konsisten, satu baris per order_id."
+    columns:
+      - name: order_id
+        description: "Kunci bisnis pesanan."
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_id
+        data_tests:
+          - not_null
+      - name: status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['paid', 'shipped', 'cancelled', 'refunded']

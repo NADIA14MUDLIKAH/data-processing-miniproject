@@ -1,0 +1,8 @@
+# Jalankan dbt dari folder dbt_project dengan: dbt <perintah> --profiles-dir .
+dpw_orders:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ../warehouse/warehouse.duckdb
+      threads: 1

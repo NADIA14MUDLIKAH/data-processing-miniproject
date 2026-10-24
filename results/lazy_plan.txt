@@ -1,0 +1,19 @@
+== NAIF ==
+AGGREGATE[maintain_order: false]
+  [col("net_amount").sum()] BY [col("order_date"), col("product_category")]
+  FROM
+   WITH_COLUMNS:
+   [(col("quantity").cast(Float64) * col("unit_price")).alias("gross_amount"), ((col("quantity").cast(Float64) * col("unit_price")) * (1.0 - col("discount_pct"))).alias("net_amount"), col("order_ts").str.strptime(["raise"]).dt.date().alias("order_date")] 
+    Csv SCAN [D:/SEM 5/DP WORKFLOW/data_processing_miniproject/data/bench/orders_uniform.csv]
+    PROJECT */9 COLUMNS
+    ESTIMATED ROWS: 1100504
+== OPTIMIZED ==
+AGGREGATE[maintain_order: false]
+  [col("net_amount").sum()] BY [col("order_date"), col("product_category")]
+  FROM
+  simple π 3/3 ["order_date", ... 2 other columns]
+     WITH_COLUMNS:
+     [((col("quantity").cast(Float64) * col("unit_price")) * (1.0 - col("discount_pct"))).alias("net_amount"), col("order_ts").str.strptime(["raise"]).dt.date().alias("order_date")] 
+      Csv SCAN [D:/SEM 5/DP WORKFLOW/data_processing_miniproject/data/bench/orders_uniform.csv]
+      PROJECT 5/9 COLUMNS
+      ESTIMATED ROWS: 1100504

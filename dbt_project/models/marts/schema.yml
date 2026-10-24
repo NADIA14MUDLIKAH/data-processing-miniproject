@@ -1,0 +1,63 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: "Dimensi pelanggan, satu baris per customer_id."
+    columns:
+      - name: customer_id
+        data_tests: [unique, not_null]
+
+  - name: dim_product_category
+    description: "Dimensi kategori produk, satu baris per kategori."
+    columns:
+      - name: category_id
+        data_tests: [unique, not_null]
+      - name: product_category
+        data_tests: [unique, not_null]
+
+  - name: dim_payment_method
+    description: "Dimensi metode pembayaran, satu baris per metode."
+    columns:
+      - name: payment_method_id
+        data_tests: [unique, not_null]
+      - name: payment_method
+        data_tests: [unique, not_null]
+
+  - name: fct_orders
+    description: "Tabel fakta pesanan (grain: satu baris per order_id)."
+    columns:
+      - name: order_id
+        description: "Kunci bisnis pesanan."
+        data_tests: [unique, not_null]
+      - name: customer_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_id
+      - name: category_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product_category')
+                field: category_id
+      - name: payment_method_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_payment_method')
+                field: payment_method_id
+      - name: net_amount
+        description: "quantity * unit_price * (1 - discount_pct)."
+        data_tests: [not_null]
+
+  - name: mart_daily_sales
+    description: "Ringkasan penjualan harian (status paid/shipped) per kategori dan metode pembayaran."
+    columns:
+      - name: order_date
+        data_tests: [not_null]
+      - name: net_sales
+        data_tests: [not_null]
